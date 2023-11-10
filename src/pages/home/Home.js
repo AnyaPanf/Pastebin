@@ -5,6 +5,8 @@ import moment from "moment/moment";
 import { useDispatch, useSelector } from 'react-redux';
 import { sendRecord, getAllPublicRecords } from "../../redux/action";
 import { ThemeContext } from '../../App'
+import { PastePage } from "../pastePage/PastePage";
+import { NavLink } from "react-router-dom";
 
 const initialValue = {
     text: "",
@@ -27,7 +29,7 @@ export const Home = () => {
     }
 
     useEffect(() => {
-     
+
         dispatch(getAllPublicRecords())
         getTenLastPosts(allRecords)
     }, [])
@@ -92,13 +94,12 @@ export const Home = () => {
                         </div>
                         <div className="home__post">
                             {lastTenPosts.map((post) => {
-                               return <div><p className="home__topic">{post.title}</p></div>
+                                return <div className="home__topic"><NavLink to='/post' id={post.id}>{post.title}</NavLink>
+                                </div>
                             })}
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </section>
     )

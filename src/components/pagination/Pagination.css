@@ -1,16 +1,12 @@
 .pagination {
     display: flex;
     justify-content: space-around;
-    padding: 15px 0;
+    padding-top: 15px;
 }
 
 .pagination__arrow {
     width: 40px;
     cursor: pointer;
-}
-
-.pagination__arrow :hover {
-    transform: scale(1.1);
 }
 
 .pagination__arrow img {

@@ -1,72 +1,77 @@
 .public {
-    padding-top: 15px;
-    position: relative;
+  padding-top: 15px;
+  position: relative;
 }
 
 .public__wrapper {
-    padding: 15px 0;
+  padding: 15px 0;
 }
 
 .public__titlegroup {
-    position: relative;
+  position: relative;
 }
 
 .public__title {
-    font-family: 'Sometype Mono', monospace;
-    font-size: 23px;
-    margin: 10px 0 20px;
+  font-family: 'Sometype Mono', monospace;
+  font-size: 23px;
+  margin: 10px 0 20px;
 }
 
 .public__color {
-    position: absolute;
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    background-color: rgba(132, 1, 255, 0.4);
-    top: -30px;
-    left: 100px;
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background-color: rgba(132, 1, 255, 0.4);
+  top: -30px;
+  left: 100px;
 }
 
 .public__table {
-    border: 1px solid #767676;
-    border-radius: 10px;
-  }
-  
+  border: 1px solid #767676;
+  border-radius: 10px;
+}
+
+.public__head,
+.public__lines {
+  display: grid;
+  grid-template-columns: minmax(150px, 50%) minmax(150px, 20%) minmax(150px, 20%) minmax(150px, 10%);
+  min-width: 100%;
+  padding: 10px 10px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.public__lines {
+  cursor: pointer;
+}
+
+.public__line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.public__line-title {
+  padding-right: 20px;
+}
+
+.public__head {
+  font-weight: 900;
+  font-size: 18px;
+  border-bottom: 1px solid #767676;
+}
+
+.public__lines:nth-child(even) {
+  background: #3a3a3a38;
+}
+
+@media (max-width: 666px) {
+
   .public__head,
   .public__lines {
-    display: grid;
-    grid-template-columns: minmax(150px, 50%) minmax(150px, 20%) minmax(150px, 20%) minmax(150px, 10%);
-    min-width: 100%;
-    padding: 10px 10px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 400;
-    font-size: 15px;
+    grid-template-columns: minmax(150px, 50%) minmax(100px, 20%) minmax(100px, 20%) minmax(70px, 10%);
   }
-  
-  .public__lines {
-    cursor: pointer;
-  }
-  
-  .public__line {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
-  .public__line-btn:hover {
-    cursor: pointer;
-  }
-  
-  .public__line-title {
-    padding-right: 20px;
-  }
-  
-  .public__head {
-    font-weight: 900;
-    font-size: 18px;
-    border-bottom: 1px solid #767676;
-  }
-  
-  .public__lines:nth-child(even) {
-    background: #3a3a3a38;
-  }
+}

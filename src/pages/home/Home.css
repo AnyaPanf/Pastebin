@@ -1,8 +1,6 @@
 .home {
-    height: calc(100vh - 130px);
     background-color: transparent;
     color: #ffffff;
-    padding-top: 15px;
 }
 
 .home__wrapper {
@@ -89,12 +87,6 @@
     text-align: center;
 }
 
-.home__submit:hover {
-    color: #ff00bf;
-    cursor: pointer;
-    filter: drop-shadow(6px 6px 0 #ff00bf66);
-}
-
 .home__text {
     width: 100%;
     height: 150px;
@@ -116,12 +108,24 @@
     text-overflow: ellipsis;
     padding: 10px;
     font-family: 'Lato', sans-serif;
-    font-weight: 400;
-    font-size: 15px;
+    font-weight: 900;
+    font-size: 14px;
     border-bottom: 1px solid #767676;
     cursor: pointer;
 }
 
 .home__topic:nth-last-child {
-    border-top: none; 
+    border-top: none;
+}
+
+@media (max-width: 666px) {
+    .home__wrapper {
+        gap: 50px;
+    }
+}
+
+@media (max-width:500px) {
+    .home__wrapper {
+        grid-template-columns: 1fr;
+    }
 }

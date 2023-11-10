@@ -6,10 +6,11 @@ import logo_black from './logo_black.png'
 import { NavLink } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { useDispatch } from 'react-redux'
+import { BurgerMenu } from '../menu/BurgerMenu'
 
-export const Header = ({ setToken}) => {
-const theme = useContext(ThemeContext);   
-    
+export const Header = ({ setToken }) => {
+    const theme = useContext(ThemeContext);
+
     const dispatch = useDispatch()
     const handleClick = () => {
         Cookies.remove('token')
@@ -31,8 +32,9 @@ const theme = useContext(ThemeContext);
                         <NavLink to='/' className='header__btn'>Home</NavLink>
                         <NavLink to='/public' className='header__btn'>Public pastes</NavLink>
                         <NavLink to='/acc' className='header__btn'>Your pastes</NavLink>
-                        <NavLink to='/'><button type='submit' className='header__btn header__btn-logout' onClick={handleClick}>Log out</button></NavLink>
                     </nav>
+                    <NavLink to='/'><button type='submit' className='header__btn header__btn-logout' onClick={handleClick}>Log out</button></NavLink>
+                    <BurgerMenu />
                 </div>
             </div>
         </header>

@@ -8,11 +8,13 @@ import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { createUser } from "../../redux/action"
 
-export const Registration = ({ handleReg, setLogedin }) => {
+export const Registration = ({ handleReg }) => {
     const [showPass, setShowPass] = useState(false)
 
     const dispatch = useDispatch()
     const user = useSelector((state) => state.createUser)
+    console.log(user)
+
 
     const handleShowPass = () => {
         setShowPass(!showPass)
@@ -27,7 +29,6 @@ export const Registration = ({ handleReg, setLogedin }) => {
 
     const onSubmit = (data) => {
         dispatch(createUser(data))
-        setLogedin(true)
         console.log(data)
     }
 
@@ -46,8 +47,9 @@ export const Registration = ({ handleReg, setLogedin }) => {
                 <h2 className="registration__title">Registration</h2>
                 <div >
                     <form className="registration__form"
-                        onSubmit={handleSubmit(onSubmit)}>
-
+                        onSubmit={handleSubmit(onSubmit)}
+                        style={{ "display": user ? "none" : "grid" }}
+                    >
                         <input className="registration__inp"
                             placeholder="Enter your username"
                             {...register("username", { required: true })}
@@ -66,7 +68,7 @@ export const Registration = ({ handleReg, setLogedin }) => {
                             <input className="registration__inp"
                                 type={showPass ? "text" : "password"}
                                 placeholder="Enter your password"
-                                {...register("password", { required: "Password is required" })}
+                                {...register("password", { required: "Password is required", minLength: 8 })}
                                 aria-invalid={errors.mail ? "true" : "false"}
                             />
                             <div className="registration__eye">
@@ -77,6 +79,10 @@ export const Registration = ({ handleReg, setLogedin }) => {
 
                         <button className="registration__btn" type="submit">Submit</button>
                     </form>
+                    <div className="registration__thanks" style={{ "display": user ? "block" : "none" }}>
+                        <p className="registration__registered">You are successfully registered</p>
+                        <p className="registration__signin">Please sign in</p>
+                    </div>
                 </div>
             </div>
         </div>

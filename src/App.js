@@ -5,8 +5,10 @@ import { Footer } from "./components/footer/Footer";
 import { Home } from "./pages/home/Home";
 import { Account } from "./pages/account/Account"
 import { Public } from "./pages/public/Public";
+import { PastePage } from "./pages/pastePage/PastePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { createContext, useContext, useState } from 'react';
+import { createContext, useState } from 'react';
+
 
 export const ThemeContext = createContext(null)
 
@@ -20,7 +22,7 @@ const App = () => {
 
   if (token) {
     return (
-      <ThemeContext.Provider value={{theme, toggleTheme}}>
+      <ThemeContext.Provider value={{ theme, toggleTheme }}>
         <div className="app" id={theme}>
           <Router>
             <Header setToken={setToken} />
@@ -28,6 +30,7 @@ const App = () => {
               <Route element={<Home />} path='/' />
               <Route element={<Account />} path='/acc' />
               <Route element={<Public />} path='/public' />
+              <Route element={<PastePage />} path='/post' />
             </Routes>
             <Footer />
           </Router>

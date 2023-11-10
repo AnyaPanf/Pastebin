@@ -1,0 +1,106 @@
+@media (min-width: 1200px) {
+    #light .header__btn:hover {
+        border: 1px solid #000;
+        background-color: #fff;
+    }
+
+    #light .header__btn-logout:hover {
+        border: 1px solid #000;
+        color: #000;
+        background-color: #fff;
+    }
+
+    #dark .home__submit:hover {
+        background-color: #fff;
+        color: #ff00bf66;
+        cursor: pointer;
+        filter: drop-shadow(6px 6px 0 #ff00bf66);
+    }
+
+    .topbar__btn:hover {
+        border: 1px solid black;
+        background-color: #ffffff;
+        filter: drop-shadow(0 5px #f5f5f5);
+    }
+
+    .main__btn:hover {
+        border: 1px solid black;
+        color: #0252e694;
+        cursor: pointer;
+        filter: drop-shadow(6px 6px 0 #0252e694);
+    }
+
+    .main__signin:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .public__line-btn:hover {
+        cursor: pointer;
+    }
+
+    .home__submit:hover {
+        color: #ff00bf;
+        cursor: pointer;
+        filter: drop-shadow(6px 6px 0 #ff00bf66);
+    }
+
+    .registration__btn:hover {
+        border: 1px solid black;
+        width: 250px;
+        height: 42px;
+        color: #000000;
+        background-color: #ffffff;
+        cursor: pointer;
+    }
+
+    .registration__close:hover {
+        transform: scale(1.2);
+    }
+
+    .topbar__btn-join:hover {
+        border: 1px solid black;
+        color: #000000;
+        background-color: #ffffff;
+        filter: drop-shadow(0 5px #f5f5f5);
+    }
+
+    .main__btn:hover {
+        border: 1px solid black;
+        color: #0252e694;
+        cursor: pointer;
+        filter: drop-shadow(6px 6px 0 #0252e694);
+    }
+
+    .pagination__arrow :hover {
+        transform: scale(1.1);
+    }
+
+    .header__btn:hover {
+        border: 1px solid #ffffff;
+        background-color: #131314;
+        cursor: pointer;
+    }
+
+    .header__btn-logout:hover {
+        border: 1px solid #ffffff;
+        color: #ffffff;
+        background-color: #131314;
+    }
+}
+
+@media (max-width: 1000px) {
+    .header__btn {
+        width: auto;
+    }
+}
+
+@media (max-width: 850px) {
+    .header__logo p {
+        font-size: 28px;
+    }
+
+    .public__head p {
+        font-size: 16px;
+    }
+}

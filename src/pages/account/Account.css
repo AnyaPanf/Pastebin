@@ -71,3 +71,11 @@
 .acc__lines:nth-child(even) {
   background: #3a3a3a38;
 }
+
+@media (max-width: 666px) {
+
+  .acc__head,
+  .acc__lines {
+    grid-template-columns: minmax(150px, 50%) minmax(100px, 20%) minmax(100px, 20%) minmax(70px, 10%);
+  }
+}

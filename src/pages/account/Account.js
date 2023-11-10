@@ -4,6 +4,7 @@ import { ThemeContext } from '../../App'
 import "./Account.css"
 import { PasteModal } from "../../components/pasteModal/PasteModal"
 import { Pagination } from "../../components/pagination/Pagination"
+import { NavLink } from 'react-router-dom'
 
 
 export const Account = () => {
@@ -53,11 +54,6 @@ export const Account = () => {
 
     // console.log(pasteDelete)
 
-    const handleDetails = (e) => {
-        setPasteDetail(e.target.id)
-        console.log(e);
-        
-    }
 console.log(pasteDetail)
     // console.log(user)
     // console.log(pasteDetail)
@@ -77,15 +73,15 @@ console.log(pasteDetail)
                             <p>Delete Paste</p>
                         </div>
                         {currentPastes.map((paste) => {
-                            return <div className="acc__lines" onClick={handleDetails}>
-                                <p className="acc__line acc__line-title" id={paste.id}>{paste.title}</p>
-                                <p className="acc__line" id={paste.id}>{paste.price}</p>
-                                <p className="acc__line" id={paste.id}>{paste.category}</p>
+                            return <div className="acc__lines">
+                                <NavLink to='/post' className="acc__line acc__line-title" id={paste.id} title={paste.title}>{paste.title}</NavLink>
+                                <NavLink to='/post' className="acc__line" id={paste.id} price={paste.price}>{paste.price}</NavLink>
+                                <NavLink to='/post' className="acc__line" id={paste.id} category={paste.category}>{paste.category}</NavLink>
                                 <p className="acc__line acc__line-btn" id={paste.id} onCLick={handleDelete}>DELETE</p>
                             </div>
                         })}
                     </div>
-                    {pasteDetail ? <PasteModal pasteDetail={pasteDetail} setPasteDetail={setPasteDetail} /> : ""}
+                    {/* {pasteDetail ? <PasteModal pasteDetail={pasteDetail} setPasteDetail={setPasteDetail} /> : ""} */}
                     <Pagination pastes={pastes}
                         pastesPerPage={pastesPerPage}
                         currentPage={currentPage}

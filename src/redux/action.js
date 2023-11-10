@@ -74,7 +74,7 @@ export const createUser = (newUser) => {
         }
         const { data } = await axios(config)
         
-    return dispatch({ type: "SET_A_NEW_USER", newUser: data })
+    return dispatch({ type: "SET_A_NEW_USER", newUser: data.id })
     }
 
 }

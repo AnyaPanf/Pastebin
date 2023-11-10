@@ -11,7 +11,7 @@ const initialState = {
     getOneUser: {},
     changeUser: {},
     login: "",
-    registration: {},
+    registration: "",
 }
 
 

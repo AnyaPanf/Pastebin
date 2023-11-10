@@ -1,0 +1,37 @@
+li {
+    list-style: none;
+    padding: 20px 0;
+}
+
+.menu__wrapper {
+    position: relative;
+}
+
+.menu__icon {
+    width: 35px;
+}
+
+.menu__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.menu__nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    z-index: 10;
+    width: 300px;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.menu__item {
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+}

@@ -1,0 +1,88 @@
+.post {
+    height: calc(100vh - 130px);
+    width: 100%;
+    padding: 30px 0 20px;
+}
+
+.post__wrapper {
+    position: relative;
+}
+
+.post__content {
+    margin: 0 auto;
+    max-width: 600px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.post__title {
+    font-family: 'Sometype Mono', monospace;
+    font-size: 23px;
+    margin: 35px 0 20px;
+}
+
+.post__subtitle {
+    margin-top: 20px;
+}
+
+.post__content-text {
+    overflow-y: scroll;
+}
+
+.post__content span {
+    font-family: 'Lato', sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+}
+
+.post__content p {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.post__circle {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.post__circle-green {
+    width: 250px;
+    height: 250px;
+    background-color: rgba(16, 187, 0, 0.3);
+    left: 0;
+    top: 280px;
+}
+
+.post__circle-violet {
+    width: 190px;
+    height: 190px;
+    background-color: rgba(156, 0, 187, 0.3);
+    left: 100px;
+    top: 190px;
+}
+
+.post__circle-yellow {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(249, 253, 4, 0.3);
+    left: 30px;
+    top: 50px;
+}
+
+.post__circle-blue {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(4, 112, 253, 0.3);
+    right: 30px;
+    top: 80px;
+}
+
+.post__circle-orange {
+    width: 150px;
+    height: 150px;
+    background-color: rgba(253, 153, 4, 0.3);
+    right: 90px;
+    top: 380px;
+}
