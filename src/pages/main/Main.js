@@ -5,13 +5,16 @@ import { Auth } from "../../components/auth/Auth"
 import { Registration } from "../../components/registration/Registration"
 import { useState, useEffect } from "react"
 import Cookies from "js-cookie"
+import { useDispatch } from "react-redux"
 
-export const Main = ({ setToken }) => {
+export const Main = () => {
     const [openAuth, setOpenAuth] = useState(false)
     const [openReg, setOpenReg] = useState(false)
 
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        setToken(Cookies.get("token"))
+        dispatch({ type: "SET_A_LOGIN", token: Cookies.get("token") })
     }, [])
 
     const handleAuth = () => {
@@ -39,7 +42,7 @@ export const Main = ({ setToken }) => {
                         </div>
                     </div>
                     <div style={{ display: openAuth ? 'block' : 'none' }}>
-                        <Auth handleAuth={handleAuth} setToken={setToken} />
+                        <Auth handleAuth={handleAuth} />
                         <div className='topbar__overlay'></div>
                     </div>
                     <div style={{ display: openReg ? 'block' : 'none' }}>

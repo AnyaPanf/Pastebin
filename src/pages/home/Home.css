@@ -1,6 +1,7 @@
 .home {
     background-color: transparent;
     color: #ffffff;
+    height: 100vh;
 }
 
 .home__wrapper {

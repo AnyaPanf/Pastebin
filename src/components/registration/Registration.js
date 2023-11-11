@@ -10,11 +10,9 @@ import { createUser } from "../../redux/action"
 
 export const Registration = ({ handleReg }) => {
     const [showPass, setShowPass] = useState(false)
-
     const dispatch = useDispatch()
     const user = useSelector((state) => state.createUser)
     console.log(user)
-
 
     const handleShowPass = () => {
         setShowPass(!showPass)
@@ -76,7 +74,6 @@ export const Registration = ({ handleReg }) => {
                             </div>
                         </div>
                         {errors.password && <p className="registration__error" role="alert">{errors.password.message}</p>}
-
                         <button className="registration__btn" type="submit">Submit</button>
                     </form>
                     <div className="registration__thanks" style={{ "display": user ? "block" : "none" }}>

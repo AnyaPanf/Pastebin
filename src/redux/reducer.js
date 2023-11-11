@@ -3,21 +3,28 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 
 const initialState = {
+    login: " ",
+    registration: {},
+    createOneRecord: "",
+    getTenLastRecords: [],
     getAllPublicRecords: [],
     getAllUserRecords: [],
-    createOneRecord: {},
     getOneRecord: {},
     deleteOneRecord: {},
     getOneUser: {},
     changeUser: {},
-    login: "",
-    registration: "",
 }
-
-
 
 const pasteBinReducer = (state = initialState, action) => {
     switch (action.type) {
+        case "SET_A_LOGIN":
+            return { ...state, login: action.token }
+        case "SET_A_NEW_USER":
+            return { ...state, registration: action.newUser }
+        case "SET_A_NEW_RECORD":
+            return { ...state, createOneRecord: action.newRecord }
+        case "SET_A_TEN_LAST_RECORDS":
+            return { ...state, getTenLastRecords: action.tenLastRecords }
         case "SET_A_PUBLIC_RECORDS":
             return { ...state, getAllPublicRecords: action.records }
         case "SET_A_PERSONAL_RECORDS":
@@ -32,14 +39,10 @@ const pasteBinReducer = (state = initialState, action) => {
             return { ...state, getOneUser: action.user }
         case "SET_A_CHANGING_USER":
             return { ...state, changeUser: action.userChanges }
-        case "SET_A_LOGIN":
-            return { ...state, login: action.token}
-            case "SET_A_NEW_USER":
-            return { ...state, createUser: action.newUser}
+
         default:
             return state
     }
-
 }
 
 export const store = createStore(pasteBinReducer, composeWithDevTools(applyMiddleware(thunk)))

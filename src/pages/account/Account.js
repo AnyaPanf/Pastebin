@@ -2,66 +2,72 @@ import axios from "axios"
 import { useState, useEffect, useContext } from "react"
 import { ThemeContext } from '../../App'
 import "./Account.css"
-import { PasteModal } from "../../components/pasteModal/PasteModal"
 import { Pagination } from "../../components/pagination/Pagination"
 import { NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux"
+import { getAllUserRecords } from "../../redux/action"
+import Cookies from "js-cookie"
 
 
 export const Account = () => {
-    const [pasteDetail, setPasteDetail] = useState("")
-    const [user, setUser] = useState([])
-    const [pasteDelete, setPasteDelete] = useState("")
-    const [pastes, setPastes] = useState([])
- const theme = useContext(ThemeContext);  
-
-    useEffect(() => {
-        const getPastes = async () => {
-            let { data } = await axios(`https://fakestoreapi.com/products`)
-            setPastes(data)
-        }
-        getPastes()
-    }, [])
-
+    const dispatch = useDispatch()
+    const allUserRecords = useSelector((state) => state.getAllUserRecords)
+    const theme = useContext(ThemeContext);
     const pastesPerPage = 10;
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastPaste = currentPage * pastesPerPage;
     const indexOfFirstPaste = indexOfLastPaste - pastesPerPage;
-    const currentPastes = pastes.slice(indexOfFirstPaste, indexOfLastPaste)
+    const currentPastes = allUserRecords.slice(indexOfFirstPaste, indexOfLastPaste)
 
-    // console.log(currentPastes);
+    useEffect(() => {
+        dispatch(getAllUserRecords())
+    }, [])
 
-    // useEffect(() => {
-    //     const getUser = async (userId) => {
-    //         let { data } = await axios(`https://bbcc-46-251-210-169.ngrok-free.app/api/User}`,
-    //             {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     "ngrok-skip-browser-warning": "69420"
-    //                 }
-    //             })
-    //         setUser(data)
-    //     }
-    //     getUser(1)
-    // }, [])
-
-    const handleDelete = async (e) => {
-        const { data } = await axios.delete(
-            // `...${e.target.id}`
-            "https://fakestoreapi.com/products/6"
+    const handleDeleteUser = async () => {
+        const { data } = await axios(
+            // `...${e.target.id} records/records/{recordID}`
+            "https://162c-212-42-120-155.ngrok-free.app/api/users/me", {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${Cookies.get("token")}`,
+                "ngrok-skip-browser-warning": "69420"
+            }
+        }
         )
-        setPasteDelete(data)
+        Cookies.remove('token', "username")
+        dispatch({ type: "SET_A_LOGIN", token: "" })
     }
 
-    // console.log(pasteDelete)
+    const handleDelete = async (e) => {
+        console.log(e.target.id);
+        const { data } = await axios(
+            // `...${e.target.id} records/records/{recordID}`
+            "https://162c-212-42-120-155.ngrok-free.app/api/users/me", {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${Cookies.get("token")}`,
+                "ngrok-skip-browser-warning": "69420"
+            }
+        }
+        )
+    }
 
-console.log(pasteDetail)
-    // console.log(user)
-    // console.log(pasteDetail)
+    const handleDetails = (e) => {
+        console.log(e.target.id)
+        dispatch({
+            type: "SET_A_ONE_RECORD", oneRecord: allUserRecords.find((record) => {
+                return record.id === Number(e.target.id)
+            })
+        })
+    }
+
     return (
         <section className="acc">
             <div className="container">
                 <div className="acc__titlegroup">
-                    <h2 className="acc__title">{user.username}'s Pastebin</h2>
+                    <h2 className="acc__title">{Cookies.get("username")}'s Pastebin</h2> <button onClick={handleDeleteUser} >Delete my Account</button>
                     <div className="acc__color"></div>
                 </div>
                 <div className="acc__wrapper">
@@ -74,15 +80,14 @@ console.log(pasteDetail)
                         </div>
                         {currentPastes.map((paste) => {
                             return <div className="acc__lines">
-                                <NavLink to='/post' className="acc__line acc__line-title" id={paste.id} title={paste.title}>{paste.title}</NavLink>
-                                <NavLink to='/post' className="acc__line" id={paste.id} price={paste.price}>{paste.price}</NavLink>
-                                <NavLink to='/post' className="acc__line" id={paste.id} category={paste.category}>{paste.category}</NavLink>
+                                <NavLink to='/post' className="acc__line acc__line-title" id={paste.id} onClick={handleDetails}>{paste.title}</NavLink>
+                                <NavLink to='/post' className="acc__line" id={paste.id} onClick={handleDetails} >{paste.price}</NavLink>
+                                <NavLink to='/post' className="acc__line" id={paste.id} onClick={handleDetails} >{paste.category}</NavLink>
                                 <p className="acc__line acc__line-btn" id={paste.id} onCLick={handleDelete}>DELETE</p>
                             </div>
                         })}
                     </div>
-                    {/* {pasteDetail ? <PasteModal pasteDetail={pasteDetail} setPasteDetail={setPasteDetail} /> : ""} */}
-                    <Pagination pastes={pastes}
+                    <Pagination pastes={allUserRecords}
                         pastesPerPage={pastesPerPage}
                         currentPage={currentPage}
                         setCurrentPage={setCurrentPage}

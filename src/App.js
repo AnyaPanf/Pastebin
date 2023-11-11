@@ -8,24 +8,29 @@ import { Public } from "./pages/public/Public";
 import { PastePage } from "./pages/pastePage/PastePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createContext, useState } from 'react';
-
+import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 
 export const ThemeContext = createContext(null)
 
 const App = () => {
-  const [token, setToken] = useState('')
   const [theme, setTheme] = useState('light')
 
   const toggleTheme = (theme) => {
     setTheme((curr) => curr === "light" ? "dark" : "light")
   }
 
+  console.log(Cookies.get("token"))
+
+  const token = useSelector((state) => state.login)
+  console.log(token)
+
   if (token) {
     return (
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
         <div className="app" id={theme}>
           <Router>
-            <Header setToken={setToken} />
+            <Header />
             <Routes>
               <Route element={<Home />} path='/' />
               <Route element={<Account />} path='/acc' />
@@ -40,7 +45,7 @@ const App = () => {
   } else {
     return (
       <div>
-        <Main setToken={setToken} />
+        <Main />
       </div>
     );
   }

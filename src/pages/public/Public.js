@@ -4,6 +4,8 @@ import { useState, useEffect, useContext } from 'react'
 import { Pagination } from "../../components/pagination/Pagination"
 import { ThemeContext } from '../../App'
 import { NavLink } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { getAllPublicRecords } from '../../redux/action'
 
 export const Public = () => {
   const [pasteDetail, setPasteDetail] = useState("")
@@ -11,44 +13,31 @@ export const Public = () => {
   const [pasteDelete, setPasteDelete] = useState("")
   const [publicPastes, setPublicPastes] = useState([])
   const theme = useContext(ThemeContext);
-
-  const handleDelete = async (e) => {
-    const { data } = await axios.delete(
-      // `...${e.target.id}`
-      "https://fakestoreapi.com/products/6"
-    )
-    setPasteDelete(data)
-  }
-
-  // useEffect(() => {
-  //   const getPastes = async () => {
-  //     let {data} = await axios('https://1387-212-42-120-155.ngrok-free.app/api/Poste', {
-  //       method: 'GET',
-  //         headers: {
-  //           "ngrok-skip-browser-warning": "69420",
-  //           }        
-  //     }
-  //     )
-  //     console.log(data);
-  //   }
-  //   getPastes()
-  // }, [])
-
-  useEffect(() => {
-    const getPublicPastes = async () => {
-      let { data } = await axios(`https://fakestoreapi.com/products`)
-      setPublicPastes(data)
-    }
-    getPublicPastes()
-  }, [])
-
-  console.log(publicPastes);
-
+  const allPublicRecord = useSelector((state) => state.getAllPublicRecords)
   const pastesPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastPaste = currentPage * pastesPerPage;
   const indexOfFirstPaste = indexOfLastPaste - pastesPerPage;
-  const currentPastes = publicPastes.slice(indexOfFirstPaste, indexOfLastPaste)
+  const currentPastes = allPublicRecord.slice(indexOfFirstPaste, indexOfLastPaste)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAllPublicRecords())
+  }, [])
+
+  const handleDetails = (e) => {
+
+    dispatch({
+      type: "SET_A_ONE_RECORD", oneRecord: allPublicRecord.find((record) => {
+        return record.id === Number(e.target.id)
+      })
+    })
+  }
+  console.log(allPublicRecord.find((record) => {
+    return record.id === 1
+  }))
+
+  console.log(publicPastes);
 
   return (
     <section className="public">
@@ -67,15 +56,14 @@ export const Public = () => {
             </div>
             {currentPastes.map((paste) => {
               return <div className="public__lines">
-                <NavLink to='/post' className="public__line public__line-title" id={paste.id} pasteDetail={pasteDetail} setPasteDetail={setPasteDetail}>{paste.title}</NavLink>
-                <NavLink to='/post' className="public__line" id={paste.id} pasteDetail={pasteDetail} setPasteDetail={setPasteDetail}>{paste.price}</NavLink>
-                <NavLink to='/post' className="public__line" id={paste.id} pasteDetail={pasteDetail} setPasteDetail={setPasteDetail}>{paste.category}</NavLink>
-                <p className="public__line public__line-btn" id={paste.id} onCLick={handleDelete}>DELETE</p>
+                <NavLink to='/post' className="public__line public__line-title" id={paste.id} onClick={handleDetails}>{paste.title}</NavLink>
+                <NavLink to='/post' className="public__line" id={paste.id} onClick={handleDetails}>{paste.price}</NavLink>
+                <NavLink to='/post' className="public__line" id={paste.id} onClick={handleDetails}>{paste.category}</NavLink>
               </div>
             })}
           </div>
           <Pagination
-            pastes={publicPastes}
+            pastes={allPublicRecord}
             pastesPerPage={pastesPerPage}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}

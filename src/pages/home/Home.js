@@ -3,9 +3,8 @@ import './Home.css'
 import { ThemeToggle } from "../../components/themeToggle/ThemeToggle";
 import moment from "moment/moment";
 import { useDispatch, useSelector } from 'react-redux';
-import { sendRecord, getAllPublicRecords } from "../../redux/action";
+import { sendRecord, getTenRecords } from "../../redux/action";
 import { ThemeContext } from '../../App'
-import { PastePage } from "../pastePage/PastePage";
 import { NavLink } from "react-router-dom";
 
 const initialValue = {
@@ -16,22 +15,15 @@ const initialValue = {
 }
 
 export const Home = () => {
-    const newPostId = useSelector((state) => state.createOneRecord)
-    const allRecords = useSelector((state) => state.getAllPublicRecords)
-    const dispatch = useDispatch()
-    const [newPost, setNewPost] = useState(initialValue)
     const [lastTenPosts, setLastTenPosts] = useState([])
     const { theme, toggleTheme } = useContext(ThemeContext);
-
-    console.log(lastTenPosts);
-    const getTenLastPosts = (records) => {
-        setLastTenPosts(records.slice(records.length - 10, records.length))
-    }
+    const lastTenRecords = useSelector((state) => state.getTenLastRecords)
+    const dispatch = useDispatch()
+    const [newPost, setNewPost] = useState(initialValue)
+    const token = useSelector((state) => state.login)
 
     useEffect(() => {
-
-        dispatch(getAllPublicRecords())
-        getTenLastPosts(allRecords)
+        dispatch(getTenRecords())
     }, [])
 
     const handleChange = (e) => {
@@ -60,6 +52,15 @@ export const Home = () => {
             newPost.deadLine = moment().add(1, "months").format();
         }
         dispatch(sendRecord(newPost))
+    }
+
+    const handleDetails = (e) => {
+        console.log(e.target.id)
+        dispatch({
+            type: "SET_A_ONE_RECORD", oneRecord: lastTenRecords.find((record) => {
+                return record.id === Number(e.target.id)
+            })
+        })
     }
 
     return (
@@ -93,8 +94,8 @@ export const Home = () => {
                             <div className="home__color home__color-green"></div>
                         </div>
                         <div className="home__post">
-                            {lastTenPosts.map((post) => {
-                                return <div className="home__topic"><NavLink to='/post' id={post.id}>{post.title}</NavLink>
+                            {lastTenRecords.map((post) => {
+                                return <div className="home__topic"><NavLink to='/post' id={post.id} onClick={handleDetails}>{post.title}</NavLink>
                                 </div>
                             })}
                         </div>

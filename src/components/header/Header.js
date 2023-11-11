@@ -8,13 +8,12 @@ import Cookies from 'js-cookie'
 import { useDispatch } from 'react-redux'
 import { BurgerMenu } from '../menu/BurgerMenu'
 
-export const Header = ({ setToken }) => {
+export const Header = () => {
     const theme = useContext(ThemeContext);
 
     const dispatch = useDispatch()
     const handleClick = () => {
         Cookies.remove('token')
-        setToken("")
         dispatch({ type: "SET_A_LOGIN", token: "" })
     }
 

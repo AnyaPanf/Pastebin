@@ -2,6 +2,14 @@
     #light .header__btn:hover {
         border: 1px solid #000;
         background-color: #fff;
+        border-radius: 10px;
+    }
+
+    #dark .header__btn:hover {
+        border: 1px solid #fff;
+        background-color: #fff;
+        border-radius: 10px;
+        color: #000;
     }
 
     #light .header__btn-logout:hover {

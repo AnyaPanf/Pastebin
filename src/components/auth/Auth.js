@@ -9,7 +9,7 @@ import { useState } from "react"
 import { useDispatch } from 'react-redux';
 import { getLogin } from "../../redux/action"
 
-export const Auth = ({ handleAuth, setToken }) => {
+export const Auth = ({ handleAuth }) => {
     const dispatch = useDispatch()
     const [showPass, setShowPass] = useState(false)
 
@@ -31,7 +31,6 @@ export const Auth = ({ handleAuth, setToken }) => {
 
     const onSubmit = async (user) => {
         dispatch(getLogin(user))
-        setToken(Cookies.get("token"))
     }
 
     console.log(watch("username")) // watch input value by passing the name of it

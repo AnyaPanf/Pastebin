@@ -1,6 +1,7 @@
 .public {
   padding-top: 15px;
   position: relative;
+  height: 100vh;
 }
 
 .public__wrapper {
@@ -35,7 +36,7 @@
 .public__head,
 .public__lines {
   display: grid;
-  grid-template-columns: minmax(150px, 50%) minmax(150px, 20%) minmax(150px, 20%) minmax(150px, 10%);
+  grid-template-columns: minmax(150px, 60%) minmax(150px, 20%) minmax(150px, 20%);
   min-width: 100%;
   padding: 10px 10px;
   font-family: 'Lato', sans-serif;
@@ -72,6 +73,6 @@
 
   .public__head,
   .public__lines {
-    grid-template-columns: minmax(150px, 50%) minmax(100px, 20%) minmax(100px, 20%) minmax(70px, 10%);
+    grid-template-columns: minmax(150px, 60%) minmax(100px, 20%) minmax(100px, 20%);
   }
 }
