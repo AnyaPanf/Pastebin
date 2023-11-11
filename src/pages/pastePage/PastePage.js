@@ -15,9 +15,9 @@ export const PastePage = ({ title, price, category }) => {
                 <div className="post__wrapper">
                     <div className='post__content'>
                         <h3 className="post__title">{ oneRecord.title}</h3>
-                        <div className="post__subtitle"><span>Privacy: </span><p>{title}</p></div>
-                        <div className="post__subtitle"><span>Deadline: </span><p>{price}</p></div>
-                        <div className="post__subtitle"><span>Paste text: </span><p>{category}</p>
+                        <div className="post__subtitle"><span>Date Created: </span><p>{oneRecord.dateCreated}</p></div>
+                        <div className="post__subtitle"><span>Deadline: </span><p>{oneRecord.deadLine}</p></div>
+                        <div className="post__subtitle"><span>Paste text: </span><p>{oneRecord.text}</p>
                         </div>
                     </div >
 

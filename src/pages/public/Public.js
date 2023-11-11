@@ -6,6 +6,7 @@ import { ThemeContext } from '../../App'
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllPublicRecords } from '../../redux/action'
+import Cookies from 'js-cookie'
 
 export const Public = () => {
   const [pasteDetail, setPasteDetail] = useState("")
@@ -20,45 +21,50 @@ export const Public = () => {
   const indexOfFirstPaste = indexOfLastPaste - pastesPerPage;
   const currentPastes = allPublicRecord.slice(indexOfFirstPaste, indexOfLastPaste)
   const dispatch = useDispatch()
-
+console.log(allPublicRecord)
   useEffect(() => {
     dispatch(getAllPublicRecords())
   }, [])
 
-  const handleDetails = (e) => {
-
+  const getOneRecord = async (id) => {
+    let {data} = await axios(`https://29e4-212-42-120-155.ngrok-free.app/api/records/records/${id}`,
+    {
+      //`${apiLink}/publicRecord`
+  method: "GET",
+      headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Cookies.get("token")}`,                            
+          "ngrok-skip-browser-warning": "69420",
+      }})
     dispatch({
-      type: "SET_A_ONE_RECORD", oneRecord: allPublicRecord.find((record) => {
-        return record.id === Number(e.target.id)
-      })
-    })
+      type: "SET_A_ONE_RECORD", oneRecord: data  })
   }
-  console.log(allPublicRecord.find((record) => {
-    return record.id === 1
-  }))
-
+  
+  const handleDetails = (e) => {
+    getOneRecord(e.target.id)
+  }
+ 
   console.log(publicPastes);
 
   return (
     <section className="public">
       <div className="container">
         <div className="public__titlegroup">
-          <h2 className="public__title">{user.username}'s Pastebin</h2>
+          <h2 className="public__title">Public Pastebin</h2>
           <div className="public__color"></div>
         </div>
         <div className="public__wrapper">
           <div className="public__table">
             <div className="public__head">
               <p>Paste Title</p>
+              <p>Date Created</p>
               <p>Deadline</p>
-              <p>Privacy</p>
-              <p>Delete Paste</p>
             </div>
             {currentPastes.map((paste) => {
               return <div className="public__lines">
                 <NavLink to='/post' className="public__line public__line-title" id={paste.id} onClick={handleDetails}>{paste.title}</NavLink>
-                <NavLink to='/post' className="public__line" id={paste.id} onClick={handleDetails}>{paste.price}</NavLink>
-                <NavLink to='/post' className="public__line" id={paste.id} onClick={handleDetails}>{paste.category}</NavLink>
+                <NavLink to='/post' className="public__line" id={paste.id} onClick={handleDetails}>{paste.dateCreated.slice(0, 10)}</NavLink>
+                <NavLink to='/post' className="public__line" id={paste.id} onClick={handleDetails}>{paste.deadLine.slice(0, 10)}</NavLink>
               </div>
             })}
           </div>

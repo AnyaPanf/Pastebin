@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sendRecord, getTenRecords } from "../../redux/action";
 import { ThemeContext } from '../../App'
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+import Cookies from "axios";
 
 const initialValue = {
     text: "",
@@ -21,10 +23,10 @@ export const Home = () => {
     const dispatch = useDispatch()
     const [newPost, setNewPost] = useState(initialValue)
     const token = useSelector((state) => state.login)
-
+    console.log(newPost)
     useEffect(() => {
         dispatch(getTenRecords())
-    }, [])
+    }, [newPost])
 
     const handleChange = (e) => {
         console.log(e)
@@ -54,14 +56,31 @@ export const Home = () => {
         dispatch(sendRecord(newPost))
     }
 
-    const handleDetails = (e) => {
-        console.log(e.target.id)
-        dispatch({
-            type: "SET_A_ONE_RECORD", oneRecord: lastTenRecords.find((record) => {
-                return record.id === Number(e.target.id)
+    const getOneRecord = async (id) => {
+
+        let { data } = await axios(`https://58bd-212-42-120-155.ngrok-free.app/api/records/records/${id}`,
+            {
+                //`${apiLink}/publicRecord`
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${Cookies.get("token")}`,
+                    "ngrok-skip-browser-warning": "69420",
+                }
             })
+        dispatch({
+            type: "SET_A_ONE_RECORD", oneRecord: data
         })
     }
+
+    const handleDetails = (e) => {
+        console.log(e.target.id)
+        getOneRecord(e.target.id)
+
+
+
+    }
+
 
     return (
         <section className="home">
@@ -85,7 +104,7 @@ export const Home = () => {
                                 <option>1 week</option>
                                 <option>1 month</option>
                             </select></div>
-                        <div className="home__paste"><input className="home__text" placeholder="Write something..." name="post" type="text" onChange={handleChange} /></div>
+                        <div className="home__paste"><input className="home__text" placeholder="Write something..." name="text" type="text" onChange={handleChange} /></div>
                         <div><button name="date" onClick={sendPost} className="home__submit">Paste</button></div>
                     </div>
                     <div className="home__latest">

@@ -11,8 +11,9 @@ import { createUser } from "../../redux/action"
 export const Registration = ({ handleReg }) => {
     const [showPass, setShowPass] = useState(false)
     const dispatch = useDispatch()
-    const user = useSelector((state) => state.createUser)
+   const [user, setUser] = useState(false)
     console.log(user)
+
 
     const handleShowPass = () => {
         setShowPass(!showPass)
@@ -28,6 +29,7 @@ export const Registration = ({ handleReg }) => {
     const onSubmit = (data) => {
         dispatch(createUser(data))
         console.log(data)
+        setUser(true)
     }
 
     console.log(watch("username")) // watch input value by passing the name of it

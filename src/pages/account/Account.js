@@ -26,7 +26,7 @@ export const Account = () => {
     const handleDeleteUser = async () => {
         const { data } = await axios(
             // `...${e.target.id} records/records/{recordID}`
-            "https://162c-212-42-120-155.ngrok-free.app/api/users/me", {
+            "https://29e4-212-42-120-155.ngrok-free.app/api/users/me", {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export const Account = () => {
             }
         }
         )
-        Cookies.remove('token', "username")
+        Cookies.remove('token', 'username')
         dispatch({ type: "SET_A_LOGIN", token: "" })
     }
 
@@ -43,7 +43,7 @@ export const Account = () => {
         console.log(e.target.id);
         const { data } = await axios(
             // `...${e.target.id} records/records/{recordID}`
-            "https://162c-212-42-120-155.ngrok-free.app/api/users/me", {
+            `https://58bd-212-42-120-155.ngrok-free.app/api/records/records/${e.target.id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
@@ -54,36 +54,50 @@ export const Account = () => {
         )
     }
 
-    const handleDetails = (e) => {
-        console.log(e.target.id)
+    const getOneRecord = async (id) => {
+        let {data} = await axios(`https://58bd-212-42-120-155.ngrok-free.app/api/records/records/${id}`,
+        {
+          //`${apiLink}/publicRecord`
+      method: "GET",
+          headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${Cookies.get("token")}`,                            
+              "ngrok-skip-browser-warning": "69420",
+          }})
         dispatch({
-            type: "SET_A_ONE_RECORD", oneRecord: allUserRecords.find((record) => {
-                return record.id === Number(e.target.id)
-            })
-        })
-    }
+          type: "SET_A_ONE_RECORD", oneRecord: data  })
+      }
+      
+      const handleDetails = (e) => {
+    
+        getOneRecord(e.target.id)
+    
+        
+    
+      }
+     
 
     return (
         <section className="acc">
             <div className="container">
                 <div className="acc__titlegroup">
-                    <h2 className="acc__title">{Cookies.get("username")}'s Pastebin</h2> <button onClick={handleDeleteUser} >Delete my Account</button>
+                    <h2 className="acc__title">{Cookies.get("username")}'s Pastebin</h2> <button className="acc__delete-acc" onClick={handleDeleteUser} >Delete my Account</button>
                     <div className="acc__color"></div>
                 </div>
                 <div className="acc__wrapper">
                     <div className="acc__table">
                         <div className="acc__head">
                             <p>Paste Title</p>
+                            <p>Date Created</p>
                             <p>Deadline</p>
-                            <p>Privacy</p>
                             <p>Delete Paste</p>
                         </div>
                         {currentPastes.map((paste) => {
                             return <div className="acc__lines">
                                 <NavLink to='/post' className="acc__line acc__line-title" id={paste.id} onClick={handleDetails}>{paste.title}</NavLink>
-                                <NavLink to='/post' className="acc__line" id={paste.id} onClick={handleDetails} >{paste.price}</NavLink>
-                                <NavLink to='/post' className="acc__line" id={paste.id} onClick={handleDetails} >{paste.category}</NavLink>
-                                <p className="acc__line acc__line-btn" id={paste.id} onCLick={handleDelete}>DELETE</p>
+                                <NavLink to='/post' className="acc__line" id={paste.id} onClick={handleDetails} >{paste.dateCreated.slice(0, 10)}</NavLink>
+                                <NavLink to='/post' className="acc__line" id={paste.id} onClick={handleDetails} >{paste.deadLine.slice(0, 10)}</NavLink>
+                                <p className="acc__line acc__line-btn" id={paste.id} onClick={handleDelete}>DELETE</p>
                             </div>
                         })}
                     </div>

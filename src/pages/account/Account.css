@@ -1,6 +1,7 @@
 .acc {
   padding-top: 15px;
   position: relative;
+  height: 100vh;
 }
 
 .acc__wrapper {
@@ -42,6 +43,11 @@
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   font-size: 15px;
+}
+
+.acc__delete-acc {
+  text-transform: uppercase;
+  color: red;
 }
 
 .acc__lines {

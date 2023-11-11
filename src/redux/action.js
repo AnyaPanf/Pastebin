@@ -2,13 +2,13 @@
 import axios from "axios"
 import Cookies from "js-cookie"
  
-const apiLink = "https://162c-212-42-120-155.ngrok-free.app/api"
+const apiLink = "https://29e4-212-42-120-155.ngrok-free.app/api"
  
 export const sendRecord = (newRecord) => {
     return async (dispatch) => {
         const config = {
             method: 'POST',
-            url: 'https://162c-212-42-120-155.ngrok-free.app/api/records/records',
+            url: `${apiLink}/records/records`,
             //  //`${apiLink}/Record
             headers: {
                 'Content-Type': 'application/json',  
@@ -33,13 +33,13 @@ export const sendRecord = (newRecord) => {
  
 export const getAllPublicRecords = () => {
     return async (dispatch) => {
-        const {data} = await axios('https://fakestoreapi.com/products', {
+        const {data} = await axios(`${apiLink}/records/records/all`, {
             //`${apiLink}/publicRecord`
         method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                // Authorization: `Bearer ${Cookies.get("token")}`,                            
-                // "ngrok-skip-browser-warning": "69420"
+                Authorization: `Bearer ${Cookies.get("token")}`,                            
+                "ngrok-skip-browser-warning": "69420"
             }})
     return dispatch({ type: "SET_A_PUBLIC_RECORDS", records: data })
     }
@@ -50,8 +50,8 @@ export const getLogin = (user) => {
     return async (dispatch) => {
         const config = {
             method: 'POST',
-            url: `https://fakestoreapi.com/auth/login`,
-             //`${apiLink}/Auth/sessions 'https://fakestoreapi.com/auth/login'
+            url: `${apiLink}/Auth/sessions`,
+             //`${apiLink}/Auth/sessions https://fakestoreapi.com/auth/login'
             headers: {
                 'Content-Type': 'application/json',
                 "ngrok-skip-browser-warning": "69420"
@@ -66,7 +66,7 @@ export const getLogin = (user) => {
             Cookies.set("token", token, { expires: 1 / 24 });
             Cookies.set("username", username, { expires: 1 / 24 })
           }
-          setCookies(data.token, user.username)
+          setCookies(data, user.username)
     return dispatch({ type: "SET_A_LOGIN", token: data})
     }
  
@@ -76,7 +76,7 @@ export const createUser = (newUser) => {
     return async (dispatch) => {
         const config = {
             method: 'POST',
-            url: 'https://162c-212-42-120-155.ngrok-free.app/api/auth/users',
+            url:`${apiLink}/Auth/users`,
             // //`${apiLink}/Auth/users
             headers: {
                 'Content-Type': 'application/json',      
@@ -85,7 +85,7 @@ export const createUser = (newUser) => {
             data: JSON.stringify({
                 username: newUser.username,
                 password: newUser.password,
-                email: newUser.email,
+                email: newUser.mail,
             }),
         }
         const { data } = await axios(config)
@@ -136,14 +136,14 @@ export const getUser = (username) => {
  
 export const getAllUserRecords = () => {
     return async (dispatch) => {
-        const {data} = await axios(`https://fakestoreapi.com/products`, {
+        const {data} = await axios(`${apiLink}/records/records/user`, {
             //`${apiLink}/Record/recordCurrentUser
            
         method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                // Authorization: `Bearer ${Cookies.get("token")}`,                
-                // "ngrok-skip-browser-warning": "69420"
+                Authorization: `Bearer ${Cookies.get("token")}`,                
+                "ngrok-skip-browser-warning": "69420"
             }})
     return dispatch({ type: "SET_A_PERSONAL_RECORDS", personalRecords: data })
     }
@@ -152,13 +152,13 @@ export const getAllUserRecords = () => {
  
 export const getTenRecords = () => {
     return async (dispatch) => {
-        const {data} = await axios('https://fakestoreapi.com/products', {
+        const {data} = await axios(`${apiLink}/records/records/all`, {
             //`${apiLink}/publicRecord`
         method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                // Authorization: `Bearer ${Cookies.get("token")}`,                            
-                // "ngrok-skip-browser-warning": "69420"
+                Authorization: `Bearer ${Cookies.get("token")}`,                            
+                "ngrok-skip-browser-warning": "69420"
             }})
     return dispatch({ type: "SET_A_TEN_LAST_RECORDS", tenLastRecords: data.length > 10 ? data.slice(data.length - 11, data.length - 1) : data })
     }
