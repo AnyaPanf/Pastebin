@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# Pastebin
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A website to store text online for a set period of time. 
+Team work with backend devs & a frontend dev.
+
+## Fulfilled during the project
+
+Web page development, adaptive design, writing functions, React components, pagination, Redux, client behavior logic, working with forms using the React-Hook-Form library.
 
 ## Available Scripts
 
